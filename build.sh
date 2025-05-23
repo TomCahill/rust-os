@@ -5,6 +5,8 @@ rustup override set nightly
 # List out the current target triple
 rustc --version --verbose
 
+cargo fmt
+
 cargo build
 
 # cargo +nightly build --target x86_64-unknown-none.json
@@ -19,3 +21,5 @@ cargo build
 # cargo rustc -- -C link-args="/ENTRY:_start /SUBSYSTEM:console"
 # macOS
 # cargo rustc -- -C link-args="-e __start -static -nostartfiles"
+
+cargo bootimage
