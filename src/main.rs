@@ -26,6 +26,8 @@ fn panic(info: &PanicInfo) -> ! {
 // Entry Point
 #[unsafe(no_mangle)] // don't mangle the name of this function, since we expect the linker to be looking for a function named `_start` by default
 pub extern "C" fn _start() -> ! {
+    tox::init();
+
     println!("");
     println!("===========================================");
     println!("|    88888888888 .d88888b. Y88b   d88P    |");
@@ -40,6 +42,19 @@ pub extern "C" fn _start() -> ! {
     println!("");
     println!("Hello World{}", "!");
     println!("The numbers are {} and {}", 42, 1.0 / 3.0);
+
+    // x86_64::instructions::interrupts::int3(); // Trigger a breakpoint exception for testing
+
+    // trigger a page fault for testing
+    // unsafe {
+    //     *(0xdeadbeef as *mut u8) = 42;
+    // };
+
+    fn stack_overflow() {
+        stack_overflow(); // This will cause a stack overflow
+    }
+
+    stack_overflow();
 
     #[cfg(test)]
     test_main();
